@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- sql 映射文件  -->
+
+<mapper namespace="henu.cs.cq.dao">
+
+	<!-- 用户注册的判断 -->
+	<insert id="addUser" parameterType="map">
+		insert into user_login (username,password,register_time,user_code) values(#{username},#{password},#{register_time},#{user_code})
+	</insert>
+	
+	<!-- 用户名唯一性的判断 -->
+	<select id="judgeUser" parameterType="String" resultType="list">
+		select * from user_login where username=#{username}
+	</select>
+	
+	<!-- 用户登录的判断返回一个user给service处理 -->
+	<select id="userLogin" parameterType="map" resultType="henu.cs.cq.domain.User">
+		select username,password from user_login where username=#{username} and password=#{password}
+	</select>
+</mapper>
